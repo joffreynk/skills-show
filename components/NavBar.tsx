@@ -1,3 +1,4 @@
+import { NavLinks } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,8 +9,10 @@ import Link from "next/link";
         <Link href='/'>
           <Image src="/logo.svg" alt="show case logo"  width={115} height={43} />
         </Link>
-        <ul className="xl:flex hidden text-small gap-7">
-
+        <ul className="hidden xl:flex text-small gap-7">
+            {
+              NavLinks.map((link) => (<Link className="" href={link.href} key={link.key} >{link.text}</Link>))
+            }
         </ul>
       </div>
     </nav>
