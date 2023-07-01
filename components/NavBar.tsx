@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
  const NarvBar = () =>{
+  const session = {}
   return (
     <nav className="flexBetween navbar">
       <div className="flex-1 flexStart gap-10">
@@ -14,6 +15,17 @@ import Link from "next/link";
               NavLinks.map((link) => (<Link className="" href={link.href} key={link.key} >{link.text}</Link>))
             }
         </ul>
+      </div>
+      <div className="flexCenter gap-4">
+        {
+          session? (
+            <>
+            <Image src={``} alt="userPhoto' width={50} height={50}" />
+            <Link href='/create-project'>Share your work</Link>
+
+            </>
+          ): <AuthProviders />
+        }
       </div>
     </nav>
   )
