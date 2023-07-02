@@ -39,7 +39,10 @@ const Footer = ()=>{
           </div>
           <FooterColumn title={footerLinks[6].title} links={footerLinks[6].links} />
         </div>
-
+      </div>
+      <div className="flexBetween footer_copyright">
+        <p className="">@ 2023 Skills-show. All rights reserved</p>
+        <p className="text-gray"><span className="text-black font-semibold">10.214</span>projects submited</p>
       </div>
     </footer>
   )
