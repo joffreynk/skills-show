@@ -19,22 +19,22 @@ export const authOptions: NextAuthOptions = {
 
   theme: {
     colorScheme: "light",
-    logo: "/logo.png"
+    logo: "/logo.svg"
   },
 
   callbacks: {
-    async session({ session}) {
+    async signIn({ user }: { user: AdapterUser | User }) {
+      return true
+    },
+    async redirect({ url, baseUrl }) {
+      return baseUrl
+    },
+    async session({ session, user, token }) {
       return session
     },
-    async signIn({ user}: {user: AdapterUser | User}) {
-      try {
-        return true
-      } catch (error: any) {
-        console.log(error);
-        
-      }
+    async jwt({ token, user, account, profile, isNewUser }) {
+      return token
     },
   }
-
 
 }
