@@ -24,17 +24,27 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async signIn({ user }: { user: AdapterUser | User }) {
-      return true
+      try {
+        console.log('SIGN IN SUCCESSFUL');
+        
+        return true
+      } catch (error: any) {
+        console.log('SIGN IN ERROR');
+        
+        console.log(error);
+        return false;
+        
+      }
     },
-    async redirect({ url, baseUrl }) {
-      return baseUrl
-    },
+    // async redirect({ url, baseUrl }) {
+    //   return baseUrl
+    // },
     async session({ session, user, token }) {
       return session
     },
-    async jwt({ token, user, account, profile, isNewUser }) {
-      return token
-    },
+    // async jwt({ token, user, account, profile, isNewUser }) {
+    //   return token
+    // },
   }
 
 }
