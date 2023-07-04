@@ -4,6 +4,7 @@ import { AdapterUser } from "next-auth/adapters";
 import  GoogleProvider  from "next-auth/providers/google";
 import  jsonwebtoken from "jsonwebtoken";
 import { JWT } from "next-auth/jwt";
+import { SessionInterface } from "@/common.types";
 
 
 export const authOptions: NextAuthOptions = {
@@ -48,3 +49,6 @@ export const authOptions: NextAuthOptions = {
   }
 
 }
+
+
+const getCurrentUser = async()=>(await getServerSession() as SessionInterface)
