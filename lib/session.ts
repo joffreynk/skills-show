@@ -51,4 +51,4 @@ export const authOptions: NextAuthOptions = {
 }
 
 
-const getCurrentUser = async()=>(await getServerSession() as SessionInterface)
+export const getCurrentUser = async()=>(await getServerSession() as SessionInterface)
