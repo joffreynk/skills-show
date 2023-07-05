@@ -6,6 +6,7 @@ import { getCurrentUser } from "@/lib/session";
 
  const NarvBar = async() =>{
   const session =  await getCurrentUser();
+  
   return (
     <nav className="flexBetween navbar">
       <div className="flex-1 flexStart gap-10">
@@ -20,9 +21,12 @@ import { getCurrentUser } from "@/lib/session";
       </div>
       <div className="flexCenter gap-4">
         {
-          session? (
+          session?.user ? (
             <>
-            <Image src={``} alt="userPhoto' width={50} height={50}" />
+            {
+              session?.user?.image && (<Image src={session.user.image} alt="userPhoto' width={50} height={50}" />)
+            }
+           
             <Link href='/create-project'>Share your work</Link>
 
             </>
