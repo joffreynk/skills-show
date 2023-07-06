@@ -2,7 +2,7 @@ import { createUserMutation, getUserQuery } from "@/graphQL/queries";
 import { GraphQLClient } from "graphql-request";
 
 const isProduction = process.env.NODE_ENV === "production";
-const apiUrl = isProduction ? process.env.GRAFBASE_URL || "" : "";
+const apiUrl = isProduction ? process.env.GRAFBASE_URL || "" : "http://127.0.0.1:4000/graphql";
 const apiKey = isProduction ? process.env.GRAFBASE_KEY || "" : "mysecret";
 const serverUrl = isProduction ? process.env.DEPLOYED_APP_URI : "http://localhost:3000";
 
