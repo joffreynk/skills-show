@@ -47,7 +47,23 @@ export const authOptions: NextAuthOptions = {
     //   return baseUrl
     // },
     async session({ session, user, token }) {
-      return session
+      const email = session?.user?.email as string
+      try {
+        const data = await getUser(email) as { user?: UserProfile};
+        const newSession = {
+          ...session,
+          user: {
+            ...session.user,
+            ...data?.user,
+          }
+        }
+
+        return newSession;
+      } catch (error) {
+        console.log('User credentials error', error);
+        
+        return session
+      }
     },
     // async jwt({ token, user, account, profile, isNewUser }) {
     //   return token
@@ -55,6 +71,5 @@ export const authOptions: NextAuthOptions = {
   }
 
 }
-
 
 export const getCurrentUser = async()=>(await getServerSession() as SessionInterface)
