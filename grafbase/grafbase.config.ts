@@ -21,6 +21,14 @@ const Project = g.model('Project', {
   CreatedBy: g.relation(()=>User),
 })
 
+const jwt = auth.JWT({
+  issuer: 'grafbase',
+  secret: g.env('AUTH_SECRET')
+})
+
 export default config({
-  schema: g
+  schema: g,
+  auth: {
+    providers: [jwt]
+  }
 })
