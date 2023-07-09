@@ -43,9 +43,6 @@ export const authOptions: NextAuthOptions = {
         
       }
     },
-    // async redirect({ url, baseUrl }) {
-    //   return baseUrl
-    // },
     async session({ session, user, token }) {
       const email = session?.user?.email as string
       try {
@@ -65,9 +62,6 @@ export const authOptions: NextAuthOptions = {
         return session
       }
     },
-    // async jwt({ token, user, account, profile, isNewUser }) {
-    //   return token
-    // },
   }
 
 }
