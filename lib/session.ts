@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth/next";
 import { NextAuthOptions, User } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 import  GoogleProvider  from "next-auth/providers/google";
+import  GitHubProvider  from "next-auth/providers/github";
 import  jsonwebtoken from "jsonwebtoken";
 import { JWT } from "next-auth/jwt";
 import { SessionInterface, UserProfile } from "@/common.types";
@@ -9,17 +10,23 @@ import { createUser, getUser } from "./actions";
 
 
 export const authOptions: NextAuthOptions = {
-  providers: [GoogleProvider({
+  providers: [
+    GoogleProvider({
     clientId: process.env.GOOGLE_CLIENT_ID!,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-  })],
+  }),
+  GitHubProvider({
+    clientId: process.env.GITHUB_ID!,
+    clientSecret: process.env.GITHUB_SECRET!,
+  })
+],
   secret: process.env.AUTH_SECRET!,
 
   jwt: {
     encode: ({ secret, token }) =>{
       const encodeToken = jsonwebtoken.sign({
         ...token,
-        iss: 'grafbase',
+        issuer: 'grafbase',
         exp: Math.floor(Date.now() / 1000) + 24*3600,
       }, secret)
       return encodeToken
@@ -77,6 +84,6 @@ export const authOptions: NextAuthOptions = {
 }
 
 export const getCurrentUser = async()=>{
-  const session = await getServerSession() as SessionInterface
+  const session = await getServerSession() as SessionInterface;
   return session
 }
