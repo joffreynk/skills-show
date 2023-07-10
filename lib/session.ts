@@ -13,13 +13,14 @@ export const authOptions: NextAuthOptions = {
     clientId: process.env.GOOGLE_CLIENT_ID!,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
   })],
+  secret: process.env.AUTH_SECRET!,
 
   jwt: {
     encode: ({ secret, token }) =>{
       const encodeToken = jsonwebtoken.sign({
         ...token,
-        issuer: 'grafbase',
-        exp: Math.floor(Date.now() / 1000)+24*3600
+        iss: 'grafbase',
+        exp: Math.floor(Date.now() / 1000) + 24*3600,
       }, secret)
       return encodeToken
     },
@@ -39,7 +40,7 @@ export const authOptions: NextAuthOptions = {
       try {
         const userExists = await getUser(user?.email as string) as { user: UserProfile};
 
-        if (!userExists.user) {
+        if (!userExists?.user) {
           await createUser(
             user.name as string,
             user.email as string,
@@ -50,11 +51,12 @@ export const authOptions: NextAuthOptions = {
         return true
       } catch (error: any) {
         return false;
-        
       }
     },
-    async session({ session, user, token }) {
+
+    async session({ session}) {
       const email = session?.user?.email as string
+      
       try {
         const data = await getUser(email) as { user?: UserProfile};
         const newSession = {
@@ -67,8 +69,6 @@ export const authOptions: NextAuthOptions = {
 
         return newSession;
       } catch (error) {
-        console.log('User credentials error', error);
-        
         return session
       }
     },
@@ -76,4 +76,7 @@ export const authOptions: NextAuthOptions = {
 
 }
 
-export const getCurrentUser = async()=>(await getServerSession() as SessionInterface)
+export const getCurrentUser = async()=>{
+  const session = await getServerSession() as SessionInterface
+  return session
+}
