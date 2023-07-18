@@ -5,7 +5,7 @@ import Footer from '@/components/Footer'
 
 export const metadata = {
   title: 'skills show',
-  description: 'showcase your skiils and match your interest',
+  description: 'show case your skiils and match your interest',
 }
 
 export default function RootLayout({
