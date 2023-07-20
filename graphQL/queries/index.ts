@@ -1,5 +1,5 @@
 export const getUserQuery = `
-  query GetUser($email: string!){
+  query getUserQuery($email: string!){
     user(by: {email: $email}){
       id
       name
@@ -13,7 +13,7 @@ export const getUserQuery = `
 `;
 
 export const createUserMutation = `
-  mutation CreateUser($input: UserCreateInput!){
+  mutation createUserMutation($input: UserCreateInput!){
     userCreate(input: $input){
       user{
         id
